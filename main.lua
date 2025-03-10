@@ -34,7 +34,7 @@ local playersService = cloneref(game:GetService('Players'))
 
 local function downloadFile(path, func, overrideRepo)
     if not isfile(path) then
-        local repo = overrideRepo or 'QP-Offcial/VapeV4ForRoblox'
+        local repo = overrideRepo or 'wrealaero/QpSkidV4'
         if path:find('universal.lua') then
             repo = 'wrealaero/QpSkidV4' -- Ensure universal.lua is pulled from YOUR repo
         end
@@ -114,7 +114,7 @@ if not shared.VapeIndependent then
 	else
 		if not shared.VapeDeveloper then
 			local suc, res = pcall(function()
-				return game:HttpGet('https://raw.githubusercontent.com/QP-Offcial/VapeV4ForRoblox/'..readfile('newvape/profiles/commit.txt')..'/games/'..game.PlaceId..'.lua', true)
+				return game:HttpGet('https://raw.githubusercontent.com/wrealaero/QpSkidV4/'..readfile('newvape/profiles/commit.txt')..'/games/'..game.PlaceId..'.lua', true)
 			end)
 			if suc and res ~= '404: Not Found' then
 				loadstring(downloadFile('newvape/games/'..game.PlaceId..'.lua'), tostring(game.PlaceId))(...)
