@@ -10,27 +10,20 @@ local delfile = delfile or function(file)
 end
 
 local function downloadFile(path, func, overrideRepo)
-    if not isfile(path) then
-        local repo = overrideRepo or 'QP-Offcial/VapeV4ForRoblox'
-        if path:find('universal.lua') then
-            repo = 'wrealaero/QpSkidV4' -- Ensure universal.lua is pulled from YOUR repo
-        end
-
-        local suc, res = pcall(function()
-            return game:HttpGet('https://raw.githubusercontent.com/'..repo..'/main/'..select(1, path:gsub('newvape/', '')), true)
-        end)
-
-        if not suc or res == '404: Not Found' then
-            error('Failed to download: '..path..' ('..res..')')
-        end
-
-        if path:find('.lua') then
-            res = '--This watermark is used to delete the file if its cached, remove it to make the file persist after vape updates.\n'..res
-        end
-
-        writefile(path, res)
-    end
-    return (func or readfile)(path)
+	if not isfile(path) then
+		local repo = overrideRepo or 'QP-Offcial/VapeV4ForRoblox'
+		local suc, res = pcall(function()
+			return game:HttpGet('https://raw.githubusercontent.com/'..repo..'/'..readfile('newvape/profiles/commit.txt')..'/'..select(1, path:gsub('newvape/', '')), true)
+		end)
+		if not suc or res == '404: Not Found' then
+			error(res)
+		end
+		if path:find('.lua') then
+			res = '--This watermark is used to delete the file if its cached, remove it to make the file persist after vape updates.\n'..res
+		end
+		writefile(path, res)
+	end
+	return (func or readfile)(path)
 end
 
 local function wipeFolder(path)
