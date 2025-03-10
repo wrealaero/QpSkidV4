@@ -4,16 +4,14 @@ local isfile = isfile or function(file)
 	end)
 	return suc and res ~= nil and res ~= ''
 end
-
 local delfile = delfile or function(file)
 	writefile(file, '')
 end
 
-local function downloadFile(path, func, overrideRepo)
+local function downloadFile(path, func)
 	if not isfile(path) then
-		local repo = overrideRepo or 'QP-Offcial/VapeV4ForRoblox'
 		local suc, res = pcall(function()
-			return game:HttpGet('https://raw.githubusercontent.com/'..repo..'/'..readfile('newvape/profiles/commit.txt')..'/'..select(1, path:gsub('newvape/', '')), true)
+			return game:HttpGet('https://raw.githubusercontent.com/wrealaero/QpSkidV4/'..readfile('newvape/profiles/commit.txt')..'/'..select(1, path:gsub('newvape/', '')), true)
 		end)
 		if not suc or res == '404: Not Found' then
 			error(res)
@@ -44,7 +42,7 @@ end
 
 if not shared.VapeDeveloper then
 	local _, subbed = pcall(function()
-		return game:HttpGet('https://github.com/QP-Offcial/VapeV4ForRoblox')
+		return game:HttpGet('https://github.com/wrealaero/QpSkidV4')
 	end)
 	local commit = subbed:find('currentOid')
 	commit = commit and subbed:sub(commit + 13, commit + 52) or nil
